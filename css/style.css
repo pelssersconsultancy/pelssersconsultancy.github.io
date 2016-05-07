@@ -168,13 +168,13 @@ code {
   clear: both;
 }
 .logo {
-  width: 40px;
+  width: 153px;
   height: 40px;
   background-repeat: no-repeat;
-  background-image: url("images/logo.png");
-  -webkit-background-size: 40px 40px;
-  -moz-background-size: 40px 40px;
-  background-size: 40px 40px;
+  background-image: url("images/logo/logo_high_resolution.png");
+  -webkit-background-size: 153px 40px;
+  -moz-background-size: 153px 40px;
+  background-size: 153px 40px;
 }
 #container {
   position: relative;
