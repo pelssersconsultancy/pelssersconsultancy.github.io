@@ -162,11 +162,11 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                3
+                4
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                8
+                9
                 <span>tags</span>
             </div>
         </div>
@@ -190,6 +190,147 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-How-to-use-different-SSH-keys-for-different-Github-accounts" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/">How to use different SSH keys for different Github accounts</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/">
+            <time datetime="2016-05-13T07:48:18.000Z" itemprop="datePublished">2016-05-13</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Github/">Github</a>, <a class="tag-link" href="/tags/SSH/">SSH</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+             <img src="/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/github-preview.gif" alt="Github image" title="Github image"> 
+<h3 id="1-Context"><a href="#1-Context" class="headerlink" title="1. Context"></a>1. Context</h3><p>As self-employed developer I have two github accounts:</p>
+<ul>
+<li>1 account for personal use <a href="https://github.com/robbypelssers" target="_blank" rel="external">robbypelssers</a></li>
+<li>1 account for my company <a href="https://github.com/pelssersconsultancy" target="_blank" rel="external">pelssersconsultancy</a></li>
+</ul>
+<p>So I would like to use a different ssh key to authenticate with per account.</p>
+<p>The default ssh key is coupled to <a href="https://github.com/robbypelssers" target="_blank" rel="external">robbypelssers</a> and I created a second ssh key for <a href="https://github.com/pelssersconsultancy" target="_blank" rel="external">pelssersconsultancy</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">robbypelssers1@Macbook-Robby-Pelssers:~/.ssh$ ls -la *pelssersconsultancy*</span><br><span class="line">-rw-------  1 robbypelssers1  staff  3243 Apr 23 11:39 id_pelssersconsultancy_rsa</span><br><span class="line">-rw-r--r--  1 robbypelssers1  staff   757 Apr 23 11:39 id_pelssersconsultancy_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>In order to always couple the  my private .ssh key  ‘id_pelssersconsultancy_rsa’ to<br>any repository from pelssersconsultancy I added the following entry to .ssh/config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">robbypelssers1@Macbook-Robby-Pelssers:~/.ssh$ more config</span><br><span class="line">Host github.com-pelssersconsultancy</span><br><span class="line">    HostName github.com</span><br><span class="line">    User git</span><br><span class="line">    IdentityFile ~/.ssh/id_pelssersconsultancy_rsa</span><br></pre></td></tr></table></figure>
+<p>So in order to checkout the project <a href="https://github.com/pelssersconsultancy/mytodolist" target="_blank" rel="external">mytodolist</a> normally I would do </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:pelssersconsultancy/mytodolist.git</span><br></pre></td></tr></table></figure>
+<p>but instead now I can do</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com-pelssersconsultancy:pelssersconsultancy/mytodolist.git</span><br></pre></td></tr></table></figure>
+<p>Just to verify:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show origin</span><br><span class="line"> remote origin</span><br><span class="line">  Fetch URL: git@github.com-pelssersconsultancy:pelssersconsultancy/mytodolist.git</span><br><span class="line">  Push  URL: git@github.com-pelssersconsultancy:pelssersconsultancy/mytodolist.git</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://pelssersconsultancy.github.io/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/" data-id="cio5fdm7o0000i25a3h50m31r" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://pelssersconsultancy.github.io/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://pelssersconsultancy.github.io/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Using-MapReduce-with-Morphia-and-MongoDB" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -242,7 +383,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/05/10/Using-MapReduce-with-Morphia-and-MongoDB/" data-id="cio1kseo500060p7rvr0azd9x" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/05/10/Using-MapReduce-with-Morphia-and-MongoDB/" data-id="cio5fdm840008i25aea4mymox" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -367,7 +508,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/04/25/How-fast-are-your-collections/" data-id="cio1kseo000020p7rjjque4wb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/04/25/How-fast-are-your-collections/" data-id="cio5fdm7w0005i25aar9wgnvk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -538,7 +679,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/04/08/How-to-setup-your-own-blog/" data-id="cio1ksenv00000p7r3yk5wcgt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/04/08/How-to-setup-your-own-blog/" data-id="cio5fdm7s0002i25a1z0whd8h" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -628,6 +769,25 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/github-preview.gif)" alt="How to use different SSH keys for different Github accounts" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/" class="title">How to use different SSH keys for different Github accounts</a></p>
+                            <p class="item-date"><time datetime="2016-05-13T07:48:18.000Z" itemprop="datePublished">2016-05-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2016/05/10/Using-MapReduce-with-Morphia-and-MongoDB/" class="thumbnail">
     
     
@@ -700,7 +860,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -709,7 +869,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Morphia/">Morphia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance/">performance</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Morphia/">Morphia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance/">performance</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -718,7 +878,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JRebel/" style="font-size: 10px;">JRebel</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Morphia/" style="font-size: 10px;">Morphia</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a>
+            <a href="/tags/Github/" style="font-size: 20px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JRebel/" style="font-size: 10px;">JRebel</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Morphia/" style="font-size: 10px;">Morphia</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a>
         </div>
     </div>
 
