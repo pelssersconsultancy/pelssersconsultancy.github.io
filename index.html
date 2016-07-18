@@ -162,11 +162,11 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                4
+                5
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                9
+                11
                 <span>tags</span>
             </div>
         </div>
@@ -190,6 +190,144 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-Finding-project-in-workspace-with-specific-maven-dependency" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/">Finding project in workspace with specific maven dependency</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/">
+            <time datetime="2016-07-18T18:12:48.000Z" itemprop="datePublished">2016-07-18</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Maven/">Maven</a>, <a class="tag-link" href="/tags/Shell/">Shell</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="1-Context"><a href="#1-Context" class="headerlink" title="1. Context"></a>1. Context</h3><p>Suppose you have several projects in your workspace and you were wondering which projects are depending on<br>a specific version of a maven dependency, this article will show you how to solve this from the command line.</p>
+<h3 id="2-Generating-Maven-Tree"><a href="#2-Generating-Maven-Tree" class="headerlink" title="2. Generating Maven Tree"></a>2. Generating Maven Tree</h3><p>To print the dependency tree of a Maven pom, you can run the following comman:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn dependency:tree</span><br></pre></td></tr></table></figure>
+<p>Output for e.g. javaslang submodule would be</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">robbypelssers1@Macbook-Robby-Pelssers:~/Documents/pelssers/javaslang/javaslang$ mvn dependency:tree</span><br><span class="line">[INFO] Scanning for projects...</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Building Javaslang 3.0.0-SNAPSHOT</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ javaslang ---</span><br><span class="line">[INFO] io.javaslang:javaslang:jar:3.0.0-SNAPSHOT</span><br><span class="line">[INFO] +- io.javaslang:javaslang-match:jar:3.0.0-SNAPSHOT:compile</span><br><span class="line">[INFO] +- junit:junit:jar:4.12:test</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">[INFO] \- org.assertj:assertj-core:jar:3.3.0:test</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: 0.745s</span><br><span class="line">[INFO] Finished at: Mon Jul 18 20:10:16 CEST 2016</span><br><span class="line">[INFO] Final Memory: 17M/309M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h3 id="3-Filtering-on-the-line-with-specific-maven-dependency-for-e-g-hamcrest-core-version-1-3"><a href="#3-Filtering-on-the-line-with-specific-maven-dependency-for-e-g-hamcrest-core-version-1-3" class="headerlink" title="3. Filtering on the line with specific maven dependency for e.g. hamcrest-core version 1.3"></a>3. Filtering on the line with specific maven dependency for e.g. hamcrest-core version 1.3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">robbypelssers1@Macbook-Robby-Pelssers:~/Documents/pelssers/javaslang/javaslang$ mvn dependency:tree | grep org.hamcrest:hamcrest-core:jar:1.3</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br></pre></td></tr></table></figure>
+<h3 id="4-Finding-all-pom-files-in-workspace-or-specific-project"><a href="#4-Finding-all-pom-files-in-workspace-or-specific-project" class="headerlink" title="4. Finding all pom files in workspace or specific project"></a>4. Finding all pom files in workspace or specific project</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">robbypelssers1@Macbook-Robby-Pelssers:~/Documents/pelssers/javaslang$ find . -name pom.xml</span><br><span class="line">./javaslang/pom.xml</span><br><span class="line">./javaslang-benchmark/pom.xml</span><br><span class="line">./javaslang-gwt/example/pom.xml</span><br><span class="line">./javaslang-gwt/pom.xml</span><br><span class="line">./javaslang-match/pom.xml</span><br><span class="line">./javaslang-pure/pom.xml</span><br><span class="line">./javaslang-test/pom.xml</span><br><span class="line">./pom.xml</span><br></pre></td></tr></table></figure>
+<h3 id="5-Pipe-the-search-results-pom-files-as-input-for-generating-dependeny-tree"><a href="#5-Pipe-the-search-results-pom-files-as-input-for-generating-dependeny-tree" class="headerlink" title="5. Pipe the search results (pom files) as input for generating dependeny tree"></a>5. Pipe the search results (pom files) as input for generating dependeny tree</h3><p>Ideally we want to pipe all pom’s as input for generating the maven dependency tree and next filter on the specific dependency.<br>The problem is you will ony output something like</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br></pre></td></tr></table></figure>
+<p>So we still don’t now what file lead to this output printed to the shell.</p>
+<p>We can however use following little trick.  We basically first find all pom files, next we first make sure to print which one we<br>are processing. Next we execute inside the folder of the respective pom the maven dependency tree command. Now we need to make<br>sure we both grep for lines containing  ‘Processing’ AND also lines containing our maven dependency.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javaslang$ find . -name pom.xml -exec echo &apos;Processing  &#123;&#125;&apos; \;  -execdir  mvn -f &#123;&#125; dependency:tree \; | grep &quot;org.hamcrest:hamcrest-core:jar:1.3\|Processing&quot;</span><br></pre></td></tr></table></figure>
+<p>This will result in below output:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Processing  ./javaslang/pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">Processing  ./javaslang-benchmark/pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">Processing  ./javaslang-gwt/example/pom.xml</span><br><span class="line">Processing  ./javaslang-gwt/pom.xml</span><br><span class="line">Processing  ./javaslang-match/pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">Processing  ./javaslang-pure/pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">Processing  ./javaslang-test/pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">Processing  ./pom.xml</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br><span class="line">[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://pelssersconsultancy.github.io/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/" data-id="ciqsd7wla0007ta5a3nqqh5dt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://pelssersconsultancy.github.io/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://pelssersconsultancy.github.io/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-How-to-use-different-SSH-keys-for-different-Github-accounts" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -253,7 +391,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/" data-id="cio5fdm7o0000i25a3h50m31r" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/05/13/How-to-use-different-SSH-keys-for-different-Github-accounts/" data-id="ciqsd7wl60005ta5a53uo275i" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -383,7 +521,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/05/10/Using-MapReduce-with-Morphia-and-MongoDB/" data-id="cio5fdm840008i25aea4mymox" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/05/10/Using-MapReduce-with-Morphia-and-MongoDB/" data-id="ciqsd7wl20004ta5ae7gwfm68" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -508,7 +646,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/04/25/How-fast-are-your-collections/" data-id="cio5fdm7w0005i25aar9wgnvk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/04/25/How-fast-are-your-collections/" data-id="ciqsd7wkx0001ta5azgu6grpm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -679,7 +817,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://pelssersconsultancy.github.io/2016/04/08/How-to-setup-your-own-blog/" data-id="cio5fdm7s0002i25a1z0whd8h" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://pelssersconsultancy.github.io/2016/04/08/How-to-setup-your-own-blog/" data-id="ciqsd7wkt0000ta5a1gwlik5j" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -765,6 +903,25 @@ ga('send', 'pageview');
         <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/18/Finding-project-in-workspace-with-specific-maven-dependency/" class="title">Finding project in workspace with specific maven dependency</a></p>
+                            <p class="item-date"><time datetime="2016-07-18T18:12:48.000Z" itemprop="datePublished">2016-07-18</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -860,7 +1017,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -869,7 +1026,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Morphia/">Morphia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance/">performance</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MapReduce/">MapReduce</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Morphia/">Morphia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSH/">SSH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/performance/">performance</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -878,7 +1035,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Github/" style="font-size: 20px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JRebel/" style="font-size: 10px;">JRebel</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Morphia/" style="font-size: 10px;">Morphia</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a>
+            <a href="/tags/Github/" style="font-size: 20px;">Github</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/JRebel/" style="font-size: 10px;">JRebel</a> <a href="/tags/MapReduce/" style="font-size: 10px;">MapReduce</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Morphia/" style="font-size: 10px;">Morphia</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Shell/" style="font-size: 10px;">Shell</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a>
         </div>
     </div>
 
